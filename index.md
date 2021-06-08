@@ -141,7 +141,7 @@ In the case of the robot game, to reiterate the scoring/reward structure is:
  
 <p algin="justify">We dont have to specify which input belongs to what field here, thats the job of the RL agent to figure out. We can give multiple combination of usernames, passwords or some dummy information and the RL agent is supposed to figure out atleast one correct combinations of username and password in this case. With all the information present we can create a Q-Table. The Q Table will look like this after we initialize the Q Values with zeros</p>
 
-</p align="center"><a href="https://imgur.com/XQrWlXM"><img src="https://i.imgur.com/XQrWlXM.png" title="source: imgur.com" /></a></p>
+</p align="center"><a href="https://imgur.com/XQrWlXM"><img src="https://i.imgur.com/XQrWlXM.png" title="source: imgur.com"/></a></p>
 
 <p align="justify">Next step will be to define rewards depneding on the goals. For each interaction with the elements we'll induce a small negative reward, this is necessary so that the RL agent learns to get to the objective in the least amount of steps possible. In the training phase we'll randomly iterate over various combination of states and actions until the login is succesful. Whenever a login attempt is succesful we get a Toast with the message 'Login success' we can use this to define the goal for the RL Agent. After the goal is achieved we'll assign a large positive reward to the chain of actions that led to the achivement. This way we ensure that the RL agent achieves the target every episode. After the model is trained for a set number of episodes we'll have an updated Q-Table wherein the action with the highest Q-Value for each state will be the appropriate action to achieve the goal</p>
 

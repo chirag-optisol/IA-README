@@ -128,13 +128,13 @@ In the case of the robot game, to reiterate the scoring/reward structure is:
 3. "Password Field"  
 4. "Login Button"  
 
-<p align="justify">We'll need to define a set of generic actions. In this case we'll need 3 --</p>
+<p align="justify">We'll need to define a set of generic actions. In this case we'll need 3 actions --</p>
 
 1. "Click Button"  
 2. "Set value to a Field"  
 3. "Skip an Element"  
 
-<p align="justify">We'll need to get the inputs for the action "Set value to a Field", here we'll give tw2o inputs -- </p>
+<p align="justify">We'll need to get the inputs for the action "Set value to a Field", here we'll give 2 inputs -- </p>
 
 1. "admin"  
 2. "password"  

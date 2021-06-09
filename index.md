@@ -30,6 +30,65 @@ To start the Frontend
 $cd frontend
 $npm start
 ```
+### Work-Flow:
+
+The App is divided into Two sections --> 
+1. Frontend
+2. Backend
+
+<p align="center"><a href="https://imgur.com/xOteMeA"><img src="https://i.imgur.com/xOteMeA.jpg" title="source: imgur.com" /></a></p>
+	
+### Frontend: 
+
+<p align="justify">The frontend folder defines the UI/UX of the app. ReactJS and TypeScript are the primary tools used here.</p>
+
+### Backend:
+
+<p align="justify">The backend defines the API layer which the frontend will use to interact with the app. The API's are hosted on a Flask Server and we have plans to move it to FAST API for faster API calls and better documentation. We use Bluprints in Flask to better structure our projects and combine it with our Flask App by registering them.</p>  
+
+<table align="center">
+   <thead>
+      <tr>
+         <th>File</th>
+         <th>Description</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td>main.py</td>
+         <td>File to start the Flask Server.</td>
+      </tr>
+      <tr>
+         <td>learner.py</td>
+         <td>File to define the RL Agent Training with Selenium.</td>
+      </tr>
+      <tr>
+         <td>/backend/__init__.py</td>
+         <td>File to register all the blueprints and connect to the MySQL Server.</td>
+      </tr>
+      <tr>
+         <td>/backend/models.py</td>
+         <td>File that defines all the tables for MySQL using Flask-SQL ALchemy.</td>
+      </tr>
+      <tr>
+         <td>/backend/auth.py</td>
+         <td>Blueprint that deals with user authentication APIs.</td>
+      </tr>
+      <tr>
+         <td>/backend/agent.py</td>
+         <td>Blueprint that deals with the RL Agent training and Inference APIs.</td>
+      </tr>
+   </tbody>
+</table>
+
+<p align="justify">We also use MySQL Database which interacts with the Flask App using Flask-SQL Alchemy. The database currently only has a Users Table for storing the information of registered users.</p> 
+
+<p align="justify">The RL Agent is defined in the learner.py and leraner.1.2.py files. We're still experimenting and improving the RL agent as we move forward.</p>
+
+**Tech Stack**
+
+Frontend : ReactJS, TypeScript  
+Backend  : Python, Flask, Selenium, Numpy, MySQL  
 
 ## Q Learning:
 
@@ -115,7 +174,7 @@ In the case of the robot game, to reiterate the scoring/reward structure is:
 
 ## How to translate this to Webpages?
 
-<p align="justify">The Intelligent Automation App utilizes Q-Learning to create bots that can do Automation Testing, Form Filling and much more. The concept of environment, state, action and reward can be easily translated to a Webpage setting where the elements of the page can be defined as measureable states. The actions are the ways in which a user can potentially interact with the Webpage. Rewards can be assigned to a certain success/assertion messages appearing on the Webpage. Let's have a look at how to apply it to our use-case for form filling.</p>
+<p align="justify">The Intelligent Automation App utilizes Q-Learning to create bots that can do Automation Testing, Form Filling and much more. The concept of environment, state, action and reward can be easily translated to a Webpage setting where the elements of the page can be defined as measureable states. The actions are the ways in which a user can potentially interact with the Webpage. Rewards can be assigned to a certain success messages appearing on the Webpage. Let's have a look at how to apply it to our use-case for form filling.</p>
 
 <p align="justify">Lets consider the login page of the Intelligent Automation app for this example:- </p>
 
@@ -128,20 +187,20 @@ In the case of the robot game, to reiterate the scoring/reward structure is:
 3. "Password Field"  
 4. "Login Button"  
 
-<p align="justify">We'll need to define a set of generic actions. In this case we'll need 3 actions --</p>
+<p align="justify">We'll need to define a set of generic actions. In this case we'll need just two --</p>
 
 1. "Click Button"  
 2. "Set value to a Field"  
 3. "Skip an Element"  
 
-<p align="justify">We'll need to get the inputs for the action "Set value to a Field", here we'll give 2 inputs -- </p>
+<p align="justify">We'll need to get the inputs for the action "Set value to a Field", here we'll give two inputs -- </p>
 
 1. "admin"  
 2. "password"  
  
 <p algin="justify">We dont have to specify which input belongs to what field here, thats the job of the RL agent to figure out. We can give multiple combination of usernames, passwords or some dummy information and the RL agent is supposed to figure out atleast one correct combinations of username and password in this case. With all the information present we can create a Q-Table. The Q Table will look like this after we initialize the Q Values with zeros</p>
 
-</p align="center"><a href="https://imgur.com/XQrWlXM"><img src="https://i.imgur.com/XQrWlXM.png" title="source: imgur.com"/></a></p>
+</p align="center"><a href="https://imgur.com/XQrWlXM"><img src="https://i.imgur.com/XQrWlXM.png" title="source: imgur.com" /></a></p>
 
 <p align="justify">Next step will be to define rewards depneding on the goals. For each interaction with the elements we'll induce a small negative reward, this is necessary so that the RL agent learns to get to the objective in the least amount of steps possible. In the training phase we'll randomly iterate over various combination of states and actions until the login is succesful. Whenever a login attempt is succesful we get a Toast with the message 'Login success' we can use this to define the goal for the RL Agent. After the goal is achieved we'll assign a large positive reward to the chain of actions that led to the achivement. This way we ensure that the RL agent achieves the target every episode. After the model is trained for a set number of episodes we'll have an updated Q-Table wherein the action with the highest Q-Value for each state will be the appropriate action to achieve the goal</p>
 
@@ -152,29 +211,6 @@ In the case of the robot game, to reiterate the scoring/reward structure is:
 
 <p align="justify">After the model is trained for a set number of episodes we'll have an updated Q-Table wherein the action with the highest Q-Value for each state will be the appropriate action to achieve the goal. We can use the updated Q-Table to run the agent on this login page, or generate Automated Test Cases for quality testing of the page.</p>
 <p align="center"><a href="https://imgur.com/OeR2m1D"><img src="https://i.imgur.com/OeR2m1D.png" title="source: imgur.com" /></a></p>  
-
-### Work-Flow:
-
-The App is divided into Two sections --> 
-1. Frontend
-2. Backend
-	
-### Frontend: 
-
-<p align="justify">The frontend folder defines the UI/UX of the app. ReactJS and TypeScript are the primary tools used here.</p>
-
-### Backend:
-
-<p align="justify">The backend defines the API layer which the frontend will use to interact with the app. The API's are hosted on a Flask Server and we have plans to move it to FAST API for faster API calls and better documentation. We use Bluprints in Flask to better structure our projects and combine it with our Flask App by registering them.</p>
-
-<p align="justify">We also use MySQL Database which interacts with the Flask App using Flask-SQL Alchemy. The database currently only has a Users Table for storing the information of registered users.</p> 
-
-<p align="justify">The RL Agent is defined in the learner.py and leraner.1.2.py files. We're still experimenting and improving the RL agent as we move forward.</p>
-
-**Tech Stack**
-
-Frontend : ReactJS, TypeScript  
-Backend  : Python, Flask, Selenium, Numpy, MySQL  
 
 **References:**
 - [Q Learning Fundamentals](https://www.youtube.com/watch?v=yMk_XtIEzH8&list=PLQVvvaa0QuDezJFIOU5wDdfy4e9vdnx-)
